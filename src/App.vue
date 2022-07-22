@@ -9,10 +9,15 @@ import ModalAddTask from './components/ModalAddTask.vue';
 
 <template>
   <header>
-    <Heading />
-    <BtnAddTask />
-    <SearchBar />
-    <SortPicker />
+    <div class="top-bar">
+      <Heading />
+      <BtnAddTask />
+    </div>
+    <div class="tool-bar">
+      <SearchBar />
+      <SortPicker />
+    </div>
+    
   </header>
 
   <main>
@@ -22,5 +27,8 @@ import ModalAddTask from './components/ModalAddTask.vue';
 </template>
 
 <style scoped>
-
+  .top-bar, .tool-bar {
+    display: flex;
+    margin-top: 30px;
+  }
 </style>

@@ -8,4 +8,7 @@
 </template>
 
 <style scoped>
+    .btn-add-task {
+        margin-left: auto;
+    }
 </style>

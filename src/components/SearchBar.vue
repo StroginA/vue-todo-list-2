@@ -5,5 +5,7 @@
 </template>
 
 <style scoped>
-
+    .search-bar {
+        color: #C4C4C4;
+    }
 </style>

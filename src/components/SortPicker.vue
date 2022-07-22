@@ -5,4 +5,7 @@
 </template>
 
 <style scoped>
+    .sort-picker {
+        margin-left: auto;
+    }
 </style>
