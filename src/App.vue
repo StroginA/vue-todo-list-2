@@ -22,7 +22,6 @@ import ModalAddTask from './components/ModalAddTask.vue';
 
   <main>
     <TableView />
-    <ModalAddTask />
   </main>
 </template>
 
@@ -30,5 +29,6 @@ import ModalAddTask from './components/ModalAddTask.vue';
   .top-bar, .tool-bar {
     display: flex;
     margin-top: 30px;
+    justify-content: center;
   }
 </style>

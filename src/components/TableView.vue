@@ -18,11 +18,15 @@
             </thead>
             <tbody class="tbody">
                 <tr class="trow">
-                    <td class="tcell"></td>
+                    <td class="tcell">
+                        <div class="chkbox-wrapper">
+                            <input type="checkbox">
+                        </div>
+                    </td>
                     <td class="tcell">
                         Размещение новостей на сайте
                     </td>
-                    <td class="tcell">
+                    <td class="tcell status-done">
                         Выполнено
                     </td>
                     <td class="tcell">
@@ -30,14 +34,14 @@
                     </td>
                 </tr>
                 <tr class="trow">
-                    <td class="tcell"></td>
-                    <td class="tcell">
-                        Размещение новостей на сайте
+                    <td class="tcell last-row"></td>
+                    <td class="tcell last-row">
+                        Внедрить Wi-fi для читателей
                     </td>
-                    <td class="tcell">
-                        Выполнено
+                    <td class="tcell last-row status-inprogress">
+                        В работе
                     </td>
-                    <td class="tcell">
+                    <td class="tcell last-row">
                         22.04.2022
                     </td>
                 </tr>
@@ -65,6 +69,9 @@
         padding-bottom: 20px;
         border-top: 1px solid #EEEBE9;
     }
+    .last-row {
+        border-bottom: 1px solid #EEEBE9;
+    }
     .theadcell {
         border-right: 1px solid #C4C4C4;
         padding-top: 10px;
@@ -73,7 +80,7 @@
         border-bottom: 0;
         height: 32px;
     }
-    .trow :hover {
+    .trow:hover {
         background-color: #F6F9FF;
     }
     .col-chk {
@@ -82,7 +89,7 @@
     .col-body {
         display: table;
         table-layout: fixed;
-        width: 100%
+        width: 100%;
     }
     .col-status {
         width: 150px;
@@ -92,6 +99,29 @@
     }
     .col-end {
         border-right: 0;
+    }
+    .status-done {
+        color: #134EC1;
+    }
+    .status-inprogress {
+        color: #F89B11;
+    }
+    .chkbox-wrapper {
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    input[type=checkbox] {
+        width: 28px;
+        height: 38px;
+        background-image: url(../assets/chk_false.svg);
+        appearance: none;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+    input[type=checkbox]:checked {
+        background-image: url(../assets/chk_true.svg);
     }
 
 </style>
