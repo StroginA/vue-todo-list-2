@@ -22,6 +22,7 @@ import ModalAddTask from './components/ModalAddTask.vue';
 
   <main>
     <TableView />
+    <ModalAddTask />
   </main>
 </template>
 
