@@ -3,7 +3,10 @@ import { computed } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
-const todos = computed(() => store.state.todos);
+const todos = computed(() => store.getters.sortedTodos);
+const updateStatus = (id, e) => {
+    store.commit('updateStatus', {id: id, value: e.target.checked})
+}
 </script>
 
 <template>
@@ -28,7 +31,7 @@ const todos = computed(() => store.state.todos);
                 <tr class="trow" v-for="todo in todos" :key="todo.id">
                     <td class="tcell">
                         <div class="chkbox-wrapper">
-                            <input type="checkbox" checked={{todo.isDone}}>
+                            <input type="checkbox" :checked=todo.isDone @change="updateStatus(todo.id, $event)">
                         </div>
                     </td>
                     <td class="tcell">
@@ -65,7 +68,7 @@ const todos = computed(() => store.state.todos);
         padding-bottom: 20px;
         border-top: 1px solid #EEEBE9;
     }
-    .last-row {
+    .trow:last-child > * {
         border-bottom: 1px solid #EEEBE9;
     }
     .theadcell {

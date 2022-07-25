@@ -28,28 +28,37 @@ const mutations = {
     },
     createTodo (state) {
         state.todos.push({
-            id: state.todos.length(),
+            id: state.todos.length,
             body: state.newTodoText,
             isDone: false,
             date: Date.now()
         })
+    },
+    updateNewTodoText (state, value) {
+        state.newTodoText = value;
+    },
+    updateStatus (state, payload) {
+        state.todos[payload.id].isDone = payload.value;
+    },
+    updateSearchText (state, value) {
+        state.searchText = value;
     }
 }
 
 const getters = {
     matchingTodos (state) {
-        return state.todos.filter(todo => todo.body.includes(state.searchText))
+        return state.todos.filter(todo => {return todo.body.includes(state.searchText)});
     },
-    sortedTodos (state) {
+    sortedTodos (state, getters) {
         switch (state.sortBy) {
             case "dateASC":
-                return state.todos.sort((a, b) => b.date - a.date);
+                return getters.matchingTodos.sort((a, b) => a.date - b.date);
             case "doneDESC":
-                return state.todos.sort((a, b) => a.isDone - b.isDone);
+                return getters.matchingTodos.sort((a, b) => a.isDone - b.isDone);
             case "doneASC":
-                return state.todos.sort((a, b) => a.isDone - b.isDone);
+                return getters.matchingTodos.sort((a, b) => a.isDone - b.isDone);
             default:
-                return state.todos.sort((a, b) => a.date - b.date);
+                return getters.matchingTodos.sort((a, b) => b.date - a.date);
         }
     }
 }

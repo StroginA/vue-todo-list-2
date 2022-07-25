@@ -1,7 +1,21 @@
 <script setup>
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 const store = useStore();
-const closeModal = () => {store.commit('closeNewTodo')};
+const closeModal = () => { store.commit('closeNewTodo') };
+const newTodoText = computed({
+    get () {
+        return store.state.newTodoText
+    },
+    set (value) {
+        store.commit('updateNewTodoText', value)
+    }
+});
+const submitTodo = () => {
+    store.commit('createTodo');
+    store.commit('updateNewTodoText', "")
+    closeModal();
+}
 </script>
 
 
@@ -21,9 +35,10 @@ const closeModal = () => {store.commit('closeNewTodo')};
             <div class="modal-label">
                 Описание:
             </div>
-            <div class="modal-textfield">
-                Введите описание
-            </div>
+            <input class="modal-textfield" placeholder="Введите описание" v-model="newTodoText">
+            <button class="modal-submit" @click="submitTodo">
+                Создать
+            </button>
         </div>
     </div>
 </template>
@@ -58,10 +73,14 @@ const closeModal = () => {store.commit('closeNewTodo')};
     border: 1px solid #DDE2E4;
     box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
     border-radius: 6px;
+    display: flex;
+    flex-direction: column;
 }
+
 .heading-wrapper {
     display: flex;
 }
+
 .modal-heading {
     font-family: 'Montserrat';
     font-style: normal;
@@ -95,7 +114,43 @@ const closeModal = () => {store.commit('closeNewTodo')};
     font-family: 'AGAvantGardeCyr Book';
     margin-bottom: 5px;
 }
+
 .modal-textfield {
+    height: 40px;
+    padding: 16px;
+    width: 100%;
     margin-bottom: 30px;
+    background: #FFFFFF;
+    border: 1px solid #DDE2E4;
+    border-radius: 8px;
+}
+
+.modal-textfield::placeholder {
+    font-family: 'Vela Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 132%;
+
+    /* or 18px */
+
+    color: #000000;
+
+    opacity: 0.5;
+}
+
+.modal-submit {
+    padding: 12px 40px;
+    background: #F0F5FF;
+    border-radius: 8px;
+    border: 0;
+    width: fit-content;
+    align-self: center;
+    font-family: 'Vela Sans';
+    font-size: 18px;
+    color: #314B99;
+}
+.modal-submit:hover {
+    background: #E0E5EF;
 }
 </style>
