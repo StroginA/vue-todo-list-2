@@ -1,17 +1,23 @@
 <script setup>
 import Heading from './components/Heading.vue';
-import BtnAddTask from './components/BtnAddTask.vue';
 import SearchBar from './components/SearchBar.vue';
 import SortPicker from './components/SortPicker.vue';
 import TableView from './components/TableView.vue';
-import ModalAddTask from './components/ModalAddTask.vue';
+import ModalAddTodo from './components/ModalAddTodo.vue';
+import BtnAddTodo from './components/BtnAddTodo.vue';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
+
+const newTodoModalIsOpen = computed(() => store.state.newTodoModalIsOpen);
 </script>
 
 <template>
   <header>
     <div class="top-bar">
       <Heading />
-      <BtnAddTask />
+      <BtnAddTodo />
     </div>
     <div class="tool-bar">
       <SearchBar />
@@ -22,7 +28,7 @@ import ModalAddTask from './components/ModalAddTask.vue';
 
   <main>
     <TableView />
-    <ModalAddTask />
+    <ModalAddTodo v-show="newTodoModalIsOpen"/>
   </main>
 </template>
 

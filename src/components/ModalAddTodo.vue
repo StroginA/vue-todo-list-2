@@ -1,3 +1,10 @@
+<script setup>
+import { useStore } from 'vuex';
+const store = useStore();
+const closeModal = () => {store.commit('closeNewTodo')};
+</script>
+
+
 <template>
     <div class="modal-backdrop">
         <div class="modal-window">
@@ -5,7 +12,7 @@
                 <div class="modal-heading">
                     Создать новую задачу
                 </div>
-                <button class="btn-close-modal">
+                <button class="btn-close-modal" @click="closeModal">
                     <img src="../assets/white_cross.svg" class="white-cross">
                 </button>
             </div>

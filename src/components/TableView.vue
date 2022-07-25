@@ -1,3 +1,11 @@
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
+const todos = computed(() => store.state.todos);
+</script>
+
 <template>
     <div class="table-wrapper">
         <table class="table">
@@ -17,32 +25,20 @@
                 </tr>
             </thead>
             <tbody class="tbody">
-                <tr class="trow">
+                <tr class="trow" v-for="todo in todos" :key="todo.id">
                     <td class="tcell">
                         <div class="chkbox-wrapper">
-                            <input type="checkbox">
+                            <input type="checkbox" checked={{todo.isDone}}>
                         </div>
                     </td>
                     <td class="tcell">
-                        Размещение новостей на сайте
+                        {{todo.body}}
                     </td>
-                    <td class="tcell status-done">
-                        Выполнено
+                    <td class="tcell status" :class="{status__done: todo.isDone}">
+                        {{todo.isDone ? "Выполнено" : "В работе"}}
                     </td>
                     <td class="tcell">
-                        22.04.2022
-                    </td>
-                </tr>
-                <tr class="trow">
-                    <td class="tcell last-row"></td>
-                    <td class="tcell last-row">
-                        Внедрить Wi-fi для читателей
-                    </td>
-                    <td class="tcell last-row status-inprogress">
-                        В работе
-                    </td>
-                    <td class="tcell last-row">
-                        22.04.2022
+                        {{todo.date}}
                     </td>
                 </tr>
             </tbody>
@@ -100,11 +96,11 @@
     .col-end {
         border-right: 0;
     }
-    .status-done {
-        color: #134EC1;
-    }
-    .status-inprogress {
+    .status {
         color: #F89B11;
+    }
+    .status__done {
+        color: #134EC1;
     }
     .chkbox-wrapper {
         height: 20px;
