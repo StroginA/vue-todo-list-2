@@ -42,5 +42,6 @@ onBeforeMount(() => {
     display: flex;
     margin-top: 30px;
     justify-content: center;
+    margin-left: 40px;
   }
 </style>
