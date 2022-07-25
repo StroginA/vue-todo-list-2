@@ -1,12 +1,34 @@
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
+
+const sortBy = computed({
+    get () {
+        return store.state.sortBy
+    },
+    set (value) {
+        store.commit('updateSortBy', value)
+    }});
+const sortByDir = computed(() => store.state.sortByDir);
+const updateSortByDir = () => {
+    store.commit('updateSortByDir');
+}
+
+</script>
+
 <template>
     <div class="sort-picker_wrapper">
         <div>Сортировать по:</div>
-        <select class="sort-picker">
-            <option value="dateDESC">Дата</option>
-            <option value="dateASC">Дата</option>
-            <option value="statusDESC">Статус</option>
-            <option value="statusASC">Статус</option>
+        <select class="sort-picker" v-model="sortBy">
+            <option value="date">Дата</option>
+            <option value="status">Статус</option>
         </select>
+        <button class="sort-picker_direction" :class="{'sort-picker_direction__ascending': sortByDir==='ASC'}"
+        @click="updateSortByDir">
+            <img src="../assets/down_arrow.svg" class="sort-picker-direction_image">
+        </button>
     </div>
 </template>
 
@@ -25,6 +47,24 @@
         color: #16191D;
         border: 0;
         background-color: inherit;
-        margin-left: 15px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: transparent;
+        margin-right: auto;
+        text-align: end;
     }
+    .sort-picker_direction {
+        border: 0;
+        background-color: inherit;
+        padding-left: 0;
+        height: 18px;
+        display: flex;
+    }
+    .sort-picker-direction_image {
+        align-self: center;
+    }
+    .sort-picker_direction__ascending > * {
+        transform: scaleY(-1);
+    }
+
 </style>

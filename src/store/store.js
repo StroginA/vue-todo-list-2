@@ -3,7 +3,8 @@ import {createStore} from 'vuex';
 const state = {
     todos: [],
     searchText: "",
-    sortBy: "dateDESC",
+    sortBy: "date",
+    sortByDir: "DESC",
     newTodoModalIsOpen: false,
     newTodoText: ""
 }
@@ -16,7 +17,8 @@ todos: [
         date: date()
     }
 ]
-sortBy: dateDESC, dateASC, statusDESC, statusASC
+sortBy: date, status
+sortByDir: DESC, ASC
 */
 
 const mutations = {
@@ -33,7 +35,6 @@ const mutations = {
             isDone: false,
             date: Date.now()
         })
-        console.log(state.todos)
     },
     updateNewTodoText (state, value) {
         state.newTodoText = value;
@@ -43,6 +44,12 @@ const mutations = {
     },
     updateSearchText (state, value) {
         state.searchText = value;
+    },
+    updateSortBy (state, value) {
+        state.sortBy = value;
+    },
+    updateSortByDir (state, value) {
+        state.sortByDir = state.sortByDir === "ASC" ? "DESC" : "ASC";
     }
 }
 
@@ -56,13 +63,13 @@ const getters = {
         });
     },
     sortedTodos (state, getters) {
-        switch (state.sortBy) {
+        switch (state.sortBy + state.sortByDir) {
             case "dateASC":
                 return getters.matchingTodos.sort((a, b) => a.date - b.date);
             case "statusDESC":
                 return getters.matchingTodos.sort((a, b) => a.isDone - b.isDone);
             case "statusASC":
-                return getters.matchingTodos.sort((a, b) => a.isDone - b.isDone);
+                return getters.matchingTodos.sort((a, b) => b.isDone - a.isDone);
             default:
                 return getters.matchingTodos.sort((a, b) => b.date - a.date);
         }
