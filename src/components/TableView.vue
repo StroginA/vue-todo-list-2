@@ -41,7 +41,7 @@ const updateStatus = (id, e) => {
                         {{todo.isDone ? "Выполнено" : "В работе"}}
                     </td>
                     <td class="tcell">
-                        {{todo.date}}
+                        {{new Date(todo.date).toLocaleDateString()}}
                     </td>
                 </tr>
             </tbody>

@@ -16,7 +16,7 @@ todos: [
         date: date()
     }
 ]
-sortBy: dateDESC, dateASC, doneDESC, doneASC
+sortBy: dateDESC, dateASC, statusDESC, statusASC
 */
 
 const mutations = {
@@ -33,6 +33,7 @@ const mutations = {
             isDone: false,
             date: Date.now()
         })
+        console.log(state.todos)
     },
     updateNewTodoText (state, value) {
         state.newTodoText = value;
@@ -47,15 +48,20 @@ const mutations = {
 
 const getters = {
     matchingTodos (state) {
-        return state.todos.filter(todo => {return todo.body.includes(state.searchText)});
+        return state.todos.filter(todo => {
+            return (todo.body.includes(state.searchText) ||
+            new Date(todo.date).toLocaleDateString().includes(state.searchText) ||
+            todo.id.toString().includes(state.searchText) ||
+            `${todo.isDone ? "Выполнено" : "В работе"}`.includes(state.searchText))
+        });
     },
     sortedTodos (state, getters) {
         switch (state.sortBy) {
             case "dateASC":
                 return getters.matchingTodos.sort((a, b) => a.date - b.date);
-            case "doneDESC":
+            case "statusDESC":
                 return getters.matchingTodos.sort((a, b) => a.isDone - b.isDone);
-            case "doneASC":
+            case "statusASC":
                 return getters.matchingTodos.sort((a, b) => a.isDone - b.isDone);
             default:
                 return getters.matchingTodos.sort((a, b) => b.date - a.date);
